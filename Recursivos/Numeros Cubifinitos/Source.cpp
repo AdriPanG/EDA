@@ -21,7 +21,8 @@ int buscar(int v[], int buscado, int cont) {
 void cubifinitos(int v[], int n, int &cont) {
 	int suma = 0;
 	int cubo = 0;
-	int i = 0;
+	int i = 1;
+	v[i-1] = n;
 	bool encontrado = false;
 
 	while (n > 0 && !encontrado) {
@@ -58,13 +59,14 @@ bool resuelve() {
 	else if (n > 0 && n <= 10000000) {
 		cubifinitos(v, n, cont);
 		
-		if (n != 1) {
-			cout << n << " - ";
+		if (v[0] != 1) {
+			cout << v[0] << " - ";
 		}
-		for (int i = 0; i < cont; i++) {
+
+		for (int i = 1; i <= cont; i++) {
 			cout << v[i];
 			
-			if (i == cont-1) {
+			if (i == cont) {
 				cout << " -> ";
 			}
 			else {
@@ -72,7 +74,7 @@ bool resuelve() {
 			}
 		}
 		
-		if (v[cont-1] == 1) {
+		if (v[cont] == 1) {
 			cout << "cubifinito." << endl;
 		}
 		else {
