@@ -27,11 +27,15 @@ const string& Paciente::sintomas() const {
 /**
 Implementa aquí los métodos de las clases adicionales
 */
-InfoPaciente::InfoPaciente(const Paciente& paciente, const Grave& grave, const Normal& normal, const Leve& leve) :
-	_paciente(paciente), _grave(grave), _normal(normal), _leve(leve) {}
+InfoPaciente::InfoPaciente(const Paciente& paciente, const Gravedad& gravedad, const Grave& grave, const Normal& normal, const Leve& leve) :
+	_paciente(paciente), _gravedad(gravedad), _grave(grave), _normal(normal), _leve(leve) {}
 
 const Paciente& InfoPaciente::paciente() const {
 	return _paciente;
+}
+
+const Gravedad& InfoPaciente::gravedad() const {
+	return _gravedad;
 }
 Grave& InfoPaciente::grave() {
 	return _grave;
@@ -51,6 +55,7 @@ y justificar la complejidad de los mismos.
 
 /**
  COMPLEJIDAD: Determina y justifica aquí la complejidad de la operación
+
  Constante solo se da valor a num_pacientes
 */
 GestionAdmisiones::GestionAdmisiones() {
@@ -84,7 +89,7 @@ void GestionAdmisiones::an_paciente(CodigoPaciente codigo, const string& nombre,
 		Normal normal = _normal.begin();
 		Leve leve = _leve.begin();
 
-		_paciente.inserta(codigo, InfoPaciente(Paciente(nombre, edad, sintomas), grave, normal, leve));
+		_paciente.inserta(codigo, InfoPaciente(Paciente(nombre, edad, sintomas), gravedad, grave, normal, leve));
 
 	}
 }
@@ -111,6 +116,8 @@ void GestionAdmisiones::info_paciente(CodigoPaciente codigo, string& nombre, uns
 
 /**
  COMPLEJIDAD: Determina y justifica aquí la complejidad de la operación
+
+ Constante ya que solo devuelve el ultimo elemento de la lista correspondiente
 */
 void GestionAdmisiones::siguiente(CodigoPaciente& codigo, Gravedad& gravedad) const {
 	// A IMPLEMENTAR
@@ -153,14 +160,13 @@ void GestionAdmisiones::elimina(CodigoPaciente codigo) {
 	Diccionario<CodigoPaciente, InfoPaciente>::Iterator fin = _paciente.end();
 		
 	if (it != fin) {
-		if (!_grave.esVacia() && it.valor().grave().elem() == codigo) {
+		if (it.valor().gravedad() == GRAVE) {
 			_grave.eliminar(it.valor().grave());
 		}
-		else if (!_normal.esVacia() && it.valor()
-			.normal().elem() == codigo) {
+		else if (it.valor().gravedad() == NORMAL) {
 			_normal.eliminar(it.valor().normal());
 		}
-		else if (!_leve.esVacia() && it.valor().leve().elem() == codigo){
+		else if (it.valor().gravedad() == LEVE) {
 			_leve.eliminar(it.valor().leve());
 		}
 

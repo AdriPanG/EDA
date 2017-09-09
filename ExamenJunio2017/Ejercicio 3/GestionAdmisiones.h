@@ -65,19 +65,21 @@ public:
 	/**
 	Operación de construcción
 	*/
-	InfoPaciente(const Paciente& paciente, const Grave& grave, const Normal& normal, const Leve& leve);
+	InfoPaciente(const Paciente& paciente, const Gravedad& gravedad, const Grave& grave, const Normal& normal, const Leve& leve);
 	/**
 	Operaciones observadoras para consultar los distintos
 	datos del paciente: su nombre, su edad y los síntomas que
 	tiene
 	*/
 	const Paciente& paciente() const;
+	const Gravedad& gravedad() const;
 	Grave& grave();
 	Normal& normal();
 	Leve& leve();
 private:
 	/** Campos para almacenar los datos del paciente */
 	Paciente _paciente;
+	Gravedad _gravedad;
 	Grave _grave;
 	Normal _normal;
 	Leve _leve;
